@@ -3,20 +3,18 @@ package org.eel.kitchen.jsonschema.formats;
 import org.eel.kitchen.jsonschema.format.FormatSpecifier;
 
 /**
- * Format specifier for {@code sha1}
- *
- * <p>This format will be quite familiar to git users!</p>
+ * Format specifier for {@code md5}
  *
  * @see HexStringFormatSpecifier
  */
-public final class SHA1FormatSpecifier
+public final class MD5FormatSpecifier
     extends HexStringFormatSpecifier
 {
-    private static final FormatSpecifier instance = new SHA1FormatSpecifier();
+    private static final FormatSpecifier instance = new MD5FormatSpecifier();
 
-    private SHA1FormatSpecifier()
+    private MD5FormatSpecifier()
     {
-        super("SHA1 hash", 40);
+        super("MD5 hash", 32);
     }
 
     public static FormatSpecifier getInstance()
