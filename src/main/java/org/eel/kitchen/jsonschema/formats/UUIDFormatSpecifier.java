@@ -9,6 +9,11 @@ import org.eel.kitchen.jsonschema.validator.ValidationContext;
 
 import java.util.UUID;
 
+/**
+ * Format specifier for a proposed {@code uuid} attribute
+ *
+ * @see UUID#fromString(String)
+ */
 public final class UUIDFormatSpecifier
     extends FormatSpecifier
 {
