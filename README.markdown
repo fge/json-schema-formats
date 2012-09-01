@@ -37,7 +37,7 @@ but which are in the core package for various reasons:</p>
 format specifiers. While defined by the draft, I believe them to be of no
 practical use and have chosen not to support them at all.</p>
 
-<p>All in all, this project handles format specifiers which, either:<p>
+<p>All in all, this project handles format specifiers which, either:</p>
 
 * are not critical to JSON Schema proper, or
 * will likely be much less used than the above.
