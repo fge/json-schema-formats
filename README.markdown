@@ -6,9 +6,9 @@ src/main/resources/LICENSE for the full text.</p>
 <h2>What it is</h2>
 
 <p>This is a sister project to
-[json-schema-validator](http://github.com/fge/json-schema-validator), which
+[json-schema-validator](https://github.com/fge/json-schema-validator), which
 handles all format specifiers not supported by json-schema-validator proper. The
-list of these specifiers is:</p>
+list of specifiers moved from the main package is:</p>
 
 * <tt>date</tt>,
 * <tt>time</tt>,
@@ -19,6 +19,10 @@ list of these specifiers is:</p>
 <p>The latter format specifier is not defined by the draft. It is a custom
 format specifier (authored by Corey Sciuto) which is equivalent to
 <tt>date-time</tt>, except augmented with milliseconds precision.</p>
+
+<p>As the time goes, some more specifiers are added. See the list of proposed
+specifiers on the
+[wiki](https://github.com/fge/json-schema-formats/wiki/Proposed-format-specifiers).</p>
 
 <h2>What about the other ones?</h2>
 
@@ -63,4 +67,3 @@ way to do it:</p>
 
 <p>(of course, adapt the argument to <tt>-Dfile=</tt>.)</p>
 
-    
