@@ -1,13 +1,12 @@
 package org.eel.kitchen.jsonschema.formats;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.google.common.base.CharMatcher;
 import org.eel.kitchen.jsonschema.format.FormatSpecifier;
 import org.eel.kitchen.jsonschema.report.ValidationMessage;
 import org.eel.kitchen.jsonschema.report.ValidationReport;
 import org.eel.kitchen.jsonschema.util.NodeType;
 import org.eel.kitchen.jsonschema.validator.ValidationContext;
-
-import java.math.BigInteger;
 
 /**
  * Format specifier for a proposed {@code sha1} format attribute
@@ -22,6 +21,11 @@ import java.math.BigInteger;
 public final class SHA1FormatSpecifier
     extends FormatSpecifier
 {
+    // FIXME: maybe there is a better way to do that? CharMatcher does not seem
+    // to have the following predefined...
+    private static final CharMatcher HEX_CHARS
+        = CharMatcher.anyOf("0123456789abcdefABCDEF");
+
     private static final int SHA1_LENGTH = 40;
     private static final int SHA1_RADIX = 16;
 
@@ -50,10 +54,7 @@ public final class SHA1FormatSpecifier
             return;
         }
 
-        try {
-            new BigInteger(sha1, SHA1_RADIX);
-        } catch (NumberFormatException ignored) {
+        if (!HEX_CHARS.matchesAllOf(value.textValue()))
             report.addMessage(msg.build());
-        }
     }
 }
