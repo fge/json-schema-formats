@@ -21,8 +21,7 @@ format specifier (authored by Corey Sciuto) which is equivalent to
 <tt>date-time</tt>, except augmented with milliseconds precision.</p>
 
 <p>As the time goes, some more specifiers are added. See the list of proposed
-specifiers on the
-[wiki](https://github.com/fge/json-schema-formats/wiki/Proposed-format-specifiers).</p>
+specifiers on the [wiki](https://github.com/fge/json-schema-formats/wiki).</p>
 
 <h2>What about the other ones?</h2>
 
