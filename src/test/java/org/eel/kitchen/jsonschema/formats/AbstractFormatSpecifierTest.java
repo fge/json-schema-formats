@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.eel.kitchen.jsonschema.format.FormatSpecifier;
 import org.eel.kitchen.jsonschema.report.ValidationReport;
 import org.eel.kitchen.jsonschema.util.JsonLoader;
+import org.eel.kitchen.jsonschema.validator.ValidationContext;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -67,9 +68,10 @@ public abstract class AbstractFormatSpecifierTest
     @Test(dataProvider = "getData", invocationCount = 10, threadPoolSize = 4)
     public void testSpecifier(final JsonNode data, final boolean valid)
     {
+        final ValidationContext context = new ValidationContext(null);
         final ValidationReport report = new ValidationReport();
 
-        specifier.checkValue(fmt, null, report, data);
+        specifier.checkValue(fmt, context, report, data);
 
         assertEquals(report.isSuccess(), valid);
     }
