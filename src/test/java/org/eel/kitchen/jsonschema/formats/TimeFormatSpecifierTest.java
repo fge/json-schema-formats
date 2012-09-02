@@ -17,8 +17,6 @@
 
 package org.eel.kitchen.jsonschema.formats;
 
-import org.eel.kitchen.jsonschema.format.TimeFormatSpecifier;
-
 import java.io.IOException;
 
 public final class TimeFormatSpecifierTest

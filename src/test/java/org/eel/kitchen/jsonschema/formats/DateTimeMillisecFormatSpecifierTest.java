@@ -17,8 +17,6 @@
 
 package org.eel.kitchen.jsonschema.formats;
 
-import org.eel.kitchen.jsonschema.format.DateTimeMillisecFormatSpecifier;
-
 import java.io.IOException;
 
 public class DateTimeMillisecFormatSpecifierTest
