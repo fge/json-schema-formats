@@ -47,22 +47,3 @@ practical use and have chosen not to support them at all.</p>
 
 <p>It is also a good opportunity to experiment with new format specifiers.
 Feature requests welcome!</p>
-
-<h2>How to use</h2>
-
-<p>The problem is that right now, the project relies on a non-existing artifact,
-which is <tt>json-schema-validator-1.0</tt>. You need to import it. Here is one
-way to do it:</p>
-
-* clone [json-schema-validator](http://github.com/fge/json-schema-validator);
-* make the jar, either using your IDE, or using <tt>mvn package</tt>;
-* use <tt>mvn install:install-file</tt> to install the artifact, as follows:
-
-<pre>
-    mvn install:install-file -DgroupId=org.kitchen-eel \
-        -DartifactId=json-schema-validator -Dversion=1.0 -Dpackaging=jar \
-        -Dfile=/path/to/json-schema-validator-1.0-SNAPSHOT.jar
-</pre>
-
-<p>(of course, adapt the argument to <tt>-Dfile=</tt>.)</p>
-
