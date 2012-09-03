@@ -5,10 +5,10 @@ src/main/resources/LICENSE for the full text.</p>
 
 <h2>What it is</h2>
 
-<p>This is a sister project to
-[json-schema-validator](https://github.com/fge/json-schema-validator), which
-handles all format specifiers not supported by json-schema-validator proper. The
-list of specifiers moved from the main package is:</p>
+<p>This is a sister project to <a
+href="https://github.com/fge/json-schema-validator">json-schema-validator</a>,
+which handles all format specifiers not supported by json-schema-validator
+proper. The list of specifiers moved from the main package is:</p>
 
 * <tt>date</tt>,
 * <tt>time</tt>,
@@ -21,7 +21,8 @@ format specifier (authored by Corey Sciuto) which is equivalent to
 <tt>date-time</tt>, except augmented with milliseconds precision.</p>
 
 <p>As the time goes, some more specifiers are added. See the list of proposed
-specifiers on the [wiki](https://github.com/fge/json-schema-formats/wiki).</p>
+specifiers on the <a
+href="https://github.com/fge/json-schema-formats/wiki">wiki</a>.</p>
 
 <h2>What about the other ones?</h2>
 
