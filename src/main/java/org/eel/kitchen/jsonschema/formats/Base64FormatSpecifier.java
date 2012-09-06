@@ -21,13 +21,26 @@ import java.util.regex.Pattern;
 public final class Base64FormatSpecifier
     extends FormatSpecifier
 {
-    // There may be up to two '=' characters at the end of the string
+    /*
+     * The algorithm is as follows:
+     *
+     * * first and foremost, check whether the total length of the input string
+     *   is a multiple of 4: even though the RFC does not state this explicitly,
+     *   it is obvious enough that this must be the case anyway;
+     * * if this check succeeds, remove _at most two_ trailing '=' characters;
+     * * check that, after this removal, all remaining characters are within the
+     *   Base64 alphabet, as defined by the RFC.
+     */
+
+    /*
+     * Regex to accurately remove _at most two_ '=' characters from the end of
+     * the input.
+     */
     private static final Pattern PATTERN = Pattern.compile("==?$");
 
     /*
      * Negation of the Base64 alphabet. We try and find one character, if any,
-     * matching the negation, after having checked the length and removed the
-     * one, or two, trailing '=' characters.
+     * matching this "negated" character matcher.
      *
      * FIXME: use .precomputed()?
      */
@@ -35,6 +48,7 @@ public final class Base64FormatSpecifier
         = CharMatcher.inRange('a', 'z').or(CharMatcher.inRange('A', 'Z'))
             .or(CharMatcher.inRange('0', '9')).or(CharMatcher.anyOf("+/"))
             .negate();
+
     private static final FormatSpecifier instance
         = new Base64FormatSpecifier();
 
@@ -74,7 +88,7 @@ public final class Base64FormatSpecifier
         if (index == -1)
             return;
 
-        msg.setMessage("malformed input: character not in alphabet")
+        msg.setMessage("malformed input: character not in Base64 alphabet")
             .addInfo("index", index);
         report.addMessage(msg.build());
     }
