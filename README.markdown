@@ -3,7 +3,7 @@
 <p>The license of this project is LGPLv3 or later. See file
 src/main/resources/LICENSE for the full text.</p>
 
-<p><b>Version 1.0.0 is now on Maven Central</b>. It requires version 1.0.2 of
+<p><b>Version 1.0.0 is now on Maven Central</b>. It requires version 1.0.3 of
 json-schema-validator, ie the latest in the 1.0.x series, which is also on Maven
 central.</p>
 
@@ -12,21 +12,26 @@ central.</p>
 <p>This is a sister project to <a
 href="https://github.com/fge/json-schema-validator">json-schema-validator</a>,
 which handles all format specifiers not supported by json-schema-validator
-proper. The list of specifiers moved from the main package is:</p>
+proper. The list of specifiers defined in draft v3 and moved from the main
+package to this one is:</p>
 
 * <tt>date</tt>,
 * <tt>time</tt>,
 * <tt>phone</tt>,
-* <tt>utc-millisec</tt>,
-* <tt>date-time-ms</tt>.
+* <tt>utc-millisec</tt>.
 
-<p>The latter format specifier is not defined by the draft. It is a custom
-format specifier (authored by Corey Sciuto) which is equivalent to
-<tt>date-time</tt>, except augmented with milliseconds precision.</p>
+<p>The list of custom format specifiers defined by this package is as follows:</p>
 
-<p>As the time goes, some more specifiers are added. See the list of proposed
-specifiers on the <a
-href="https://github.com/fge/json-schema-formats/wiki">wiki</a>.</p>
+* <tt>base64</tt>;
+* <tt>date-time-ms</tt> (ISO 8601 date format, with millisecond precision);
+* <tt>md5</tt>;
+* <tt>sha1</tt> (yes, git commit IDs use that);
+* <tt>sha256</tt>;
+* <tt>sha512</tt>.
+
+<p>As the time goes, some more specifiers are added. See the <a
+href="https://github.com/fge/json-schema-formats/wiki">wiki</a> for more
+information.</p>
 
 <h2>What about the other ones?</h2>
 
