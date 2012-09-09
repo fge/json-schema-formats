@@ -27,7 +27,8 @@ package to this one is:</p>
 * <tt>md5</tt>;
 * <tt>sha1</tt> (yes, git commit IDs use that);
 * <tt>sha256</tt>;
-* <tt>sha512</tt>.
+* <tt>sha512</tt>;
+* <tt>mac</tt>.
 
 <p>As the time goes, some more specifiers are added. See the <a
 href="https://github.com/fge/json-schema-formats/wiki">wiki</a> for more
