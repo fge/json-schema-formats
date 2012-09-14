@@ -3,7 +3,7 @@
 <p>The license of this project is LGPLv3 or later. See file
 src/main/resources/LICENSE for the full text.</p>
 
-<p><b>Version 1.0.0 is now on Maven Central</b>. It requires version 1.0.3 of
+<p><b>Version 1.0.1 is now on Maven Central</b>. It requires version 1.0.4 of
 json-schema-validator, ie the latest in the 1.0.x series, which is also on Maven
 central.</p>
 
