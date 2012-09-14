@@ -17,25 +17,14 @@
 
 package org.eel.kitchen.jsonschema.formats;
 
-import org.eel.kitchen.jsonschema.format.AbstractDateFormatSpecifier;
-import org.eel.kitchen.jsonschema.format.FormatSpecifier;
+import java.io.IOException;
 
-/**
- * Validator for the {@code time} format specification
- */
-public final class TimeFormatSpecifier
-    extends AbstractDateFormatSpecifier
+public final class UnixEpochFormatAttributeTest
+    extends AbstractFormatAttributeTest
 {
-    private static final FormatSpecifier instance
-        = new TimeFormatSpecifier();
-
-    private TimeFormatSpecifier()
+    UnixEpochFormatAttributeTest()
+        throws IOException
     {
-        super("HH:mm:ss", "time");
-    }
-
-    public static FormatSpecifier getInstance()
-    {
-        return instance;
+        super(UnixEpochFormatAttribute.getInstance(), "utc-millisec");
     }
 }

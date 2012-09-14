@@ -1,8 +1,8 @@
 package org.eel.kitchen.jsonschema.formats;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import org.eel.kitchen.jsonschema.format.FormatSpecifier;
-import org.eel.kitchen.jsonschema.report.ValidationMessage;
+import org.eel.kitchen.jsonschema.format.FormatAttribute;
+import org.eel.kitchen.jsonschema.report.Message;
 import org.eel.kitchen.jsonschema.report.ValidationReport;
 import org.eel.kitchen.jsonschema.util.NodeType;
 import org.eel.kitchen.jsonschema.validator.ValidationContext;
@@ -14,17 +14,17 @@ import java.util.UUID;
  *
  * @see UUID#fromString(String)
  */
-public final class UUIDFormatSpecifier
-    extends FormatSpecifier
+public final class UUIDFormatAttribute
+    extends FormatAttribute
 {
-    private static final FormatSpecifier instance = new UUIDFormatSpecifier();
+    private static final FormatAttribute instance = new UUIDFormatAttribute();
 
-    private UUIDFormatSpecifier()
+    private UUIDFormatAttribute()
     {
         super(NodeType.STRING);
     }
 
-    public static FormatSpecifier getInstance()
+    public static FormatAttribute getInstance()
     {
         return instance;
     }
@@ -36,8 +36,7 @@ public final class UUIDFormatSpecifier
         try {
             UUID.fromString(value.textValue());
         } catch (IllegalArgumentException ignored) {
-            final ValidationMessage.Builder msg = newMsg(fmt)
-                .addInfo("value", value)
+            final Message.Builder msg = newMsg(fmt).addInfo("value", value)
                 .setMessage("string is not a valid UUID");
             report.addMessage(msg.build());
         }

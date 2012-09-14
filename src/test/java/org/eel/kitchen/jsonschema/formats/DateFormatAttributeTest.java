@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, Corey Sciuto <corey.sciuto@gmail.com>
+ * Copyright (c) 2012, Francis Galiegue <fgaliegue@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the Lesser GNU General Public License as
@@ -17,25 +17,14 @@
 
 package org.eel.kitchen.jsonschema.formats;
 
-import org.eel.kitchen.jsonschema.format.AbstractDateFormatSpecifier;
-import org.eel.kitchen.jsonschema.format.FormatSpecifier;
+import java.io.IOException;
 
-/**
- * Validator for the custom {@code date-time-ms} format specification
- */
-public final class DateTimeMillisecFormatSpecifier
-    extends AbstractDateFormatSpecifier
+public final class DateFormatAttributeTest
+    extends AbstractFormatAttributeTest
 {
-    private static final FormatSpecifier instance
-        = new DateTimeMillisecFormatSpecifier();
-
-    public static FormatSpecifier getInstance()
+    DateFormatAttributeTest()
+        throws IOException
     {
-        return instance;
-    }
-
-    private DateTimeMillisecFormatSpecifier()
-    {
-        super("yyyy-MM-dd'T'HH:mm:ss.SSSZ", "ISO 8601 date (with milliseconds)");
+        super(DateFormatAttribute.getInstance(), "date");
     }
 }

@@ -19,14 +19,14 @@ package org.eel.kitchen.jsonschema.formats;
 
 import java.io.IOException;
 
-public class DateTimeMillisecFormatSpecifierTest
-    extends AbstractFormatSpecifierTest
+public class DateTimeMillisecFormatAttributeTest
+    extends AbstractFormatAttributeTest
 {
 
-    DateTimeMillisecFormatSpecifierTest()
+    DateTimeMillisecFormatAttributeTest()
         throws IOException
     {
-        super(DateTimeMillisecFormatSpecifier.getInstance(),
+        super(DateTimeMillisecFormatAttribute.getInstance(),
             "datetimemillisec");
     }
 }

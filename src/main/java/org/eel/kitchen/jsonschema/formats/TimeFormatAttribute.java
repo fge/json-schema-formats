@@ -17,24 +17,25 @@
 
 package org.eel.kitchen.jsonschema.formats;
 
-import org.eel.kitchen.jsonschema.format.AbstractDateFormatSpecifier;
-import org.eel.kitchen.jsonschema.format.FormatSpecifier;
+import org.eel.kitchen.jsonschema.format.AbstractDateFormatAttribute;
+import org.eel.kitchen.jsonschema.format.FormatAttribute;
 
 /**
- * Validator for the {@code date} format specification
+ * Validator for the {@code time} format specification
  */
-public final class DateFormatSpecifier
-    extends AbstractDateFormatSpecifier
+public final class TimeFormatAttribute
+    extends AbstractDateFormatAttribute
 {
-    private static final FormatSpecifier instance = new DateFormatSpecifier();
+    private static final FormatAttribute instance
+        = new TimeFormatAttribute();
 
-    public static FormatSpecifier getInstance()
+    private TimeFormatAttribute()
     {
-        return instance;
+        super("HH:mm:ss", "time");
     }
 
-    private DateFormatSpecifier()
+    public static FormatAttribute getInstance()
     {
-        super("yyyy-MM-dd", "date");
+        return instance;
     }
 }

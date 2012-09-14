@@ -18,8 +18,8 @@
 package org.eel.kitchen.jsonschema.formats;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import org.eel.kitchen.jsonschema.format.FormatSpecifier;
-import org.eel.kitchen.jsonschema.report.ValidationMessage;
+import org.eel.kitchen.jsonschema.format.FormatAttribute;
+import org.eel.kitchen.jsonschema.report.Message;
 import org.eel.kitchen.jsonschema.report.ValidationReport;
 import org.eel.kitchen.jsonschema.util.NodeType;
 import org.eel.kitchen.jsonschema.validator.ValidationContext;
@@ -36,11 +36,11 @@ import java.math.BigInteger;
  * 1.
  * </p>
  */
-public final class UnixEpochFormatSpecifier
-    extends FormatSpecifier
+public final class UnixEpochFormatAttribute
+    extends FormatAttribute
 {
-    private static final FormatSpecifier instance
-        = new UnixEpochFormatSpecifier();
+    private static final FormatAttribute instance
+        = new UnixEpochFormatAttribute();
 
     /**
      * The maximum bit length of a Unix timestamp value
@@ -52,12 +52,12 @@ public final class UnixEpochFormatSpecifier
      */
     private static final BigInteger ONE_THOUSAND = new BigInteger("1000");
 
-    private UnixEpochFormatSpecifier()
+    private UnixEpochFormatAttribute()
     {
         super(NodeType.INTEGER, NodeType.NUMBER);
     }
 
-    public static FormatSpecifier getInstance()
+    public static FormatAttribute getInstance()
     {
         return instance;
     }
@@ -68,7 +68,7 @@ public final class UnixEpochFormatSpecifier
     {
         BigInteger epoch = value.bigIntegerValue();
 
-        final ValidationMessage.Builder msg;
+        final Message.Builder msg;
 
         if (epoch.signum() == -1) {
             msg = newMsg(fmt).setMessage("epoch cannot be negative")

@@ -2,8 +2,8 @@ package org.eel.kitchen.jsonschema.formats;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.base.CharMatcher;
-import org.eel.kitchen.jsonschema.format.FormatSpecifier;
-import org.eel.kitchen.jsonschema.report.ValidationMessage;
+import org.eel.kitchen.jsonschema.format.FormatAttribute;
+import org.eel.kitchen.jsonschema.report.Message;
 import org.eel.kitchen.jsonschema.report.ValidationReport;
 import org.eel.kitchen.jsonschema.util.NodeType;
 import org.eel.kitchen.jsonschema.validator.ValidationContext;
@@ -18,8 +18,8 @@ import java.util.regex.Pattern;
  * is chosen here to require that there be at most two, as per Base64 encoding
  * rules.</p>
  */
-public final class Base64FormatSpecifier
-    extends FormatSpecifier
+public final class Base64FormatAttribute
+    extends FormatAttribute
 {
     /*
      * The algorithm is as follows:
@@ -49,15 +49,15 @@ public final class Base64FormatSpecifier
             .or(CharMatcher.inRange('0', '9')).or(CharMatcher.anyOf("+/"))
             .negate();
 
-    private static final FormatSpecifier instance
-        = new Base64FormatSpecifier();
+    private static final FormatAttribute instance
+        = new Base64FormatAttribute();
 
-    public static FormatSpecifier getInstance()
+    public static FormatAttribute getInstance()
     {
         return instance;
     }
 
-    private Base64FormatSpecifier()
+    private Base64FormatAttribute()
     {
         super(NodeType.STRING);
     }
@@ -67,8 +67,7 @@ public final class Base64FormatSpecifier
         final ValidationReport report, final JsonNode value)
     {
         final String input = value.textValue();
-        final ValidationMessage.Builder msg = newMsg(fmt)
-            .addInfo("value", value);
+        final Message.Builder msg = newMsg(fmt).addInfo("value", value);
 
         /*
          * The string length must be a multiple of 4. FIXME though: can it be 0?

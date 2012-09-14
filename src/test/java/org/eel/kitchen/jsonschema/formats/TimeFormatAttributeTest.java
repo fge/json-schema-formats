@@ -19,12 +19,12 @@ package org.eel.kitchen.jsonschema.formats;
 
 import java.io.IOException;
 
-public final class PhoneNumberFormatSpecifierTest
-    extends AbstractFormatSpecifierTest
+public final class TimeFormatAttributeTest
+    extends AbstractFormatAttributeTest
 {
-    PhoneNumberFormatSpecifierTest()
+    TimeFormatAttributeTest()
         throws IOException
     {
-        super(PhoneNumberFormatSpecifier.getInstance(), "phone");
+        super(TimeFormatAttribute.getInstance(), "time");
     }
 }

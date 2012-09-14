@@ -20,9 +20,9 @@ package org.eel.kitchen.jsonschema.formats;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
-import org.eel.kitchen.jsonschema.format.FormatSpecifier;
+import org.eel.kitchen.jsonschema.format.FormatAttribute;
 import org.eel.kitchen.jsonschema.keyword.KeywordValidator;
-import org.eel.kitchen.jsonschema.report.ValidationMessage;
+import org.eel.kitchen.jsonschema.report.Message;
 import org.eel.kitchen.jsonschema.report.ValidationReport;
 import org.eel.kitchen.jsonschema.util.NodeType;
 import org.eel.kitchen.jsonschema.validator.ValidationContext;
@@ -40,20 +40,20 @@ import org.eel.kitchen.jsonschema.validator.ValidationContext;
  *
  */
 //TODO: more tests?
-public final class PhoneNumberFormatSpecifier
-    extends FormatSpecifier
+public final class PhoneNumberFormatAttribute
+    extends FormatAttribute
 {
-    private static final FormatSpecifier instance
-        = new PhoneNumberFormatSpecifier();
+    private static final FormatAttribute instance
+        = new PhoneNumberFormatAttribute();
 
     private static final PhoneNumberUtil parser = PhoneNumberUtil.getInstance();
 
-    private PhoneNumberFormatSpecifier()
+    private PhoneNumberFormatAttribute()
     {
         super(NodeType.STRING);
     }
 
-    public static FormatSpecifier getInstance()
+    public static FormatAttribute getInstance()
     {
         return instance;
     }
@@ -81,7 +81,7 @@ public final class PhoneNumberFormatSpecifier
             else
                 parser.parse(input, "FR");
         } catch (NumberParseException ignored) {
-            final ValidationMessage.Builder msg = newMsg(fmt)
+            final Message.Builder msg = newMsg(fmt)
                 .setMessage("string is not a recognized phone number")
                 .addInfo("value", value);
             report.addMessage(msg.build());

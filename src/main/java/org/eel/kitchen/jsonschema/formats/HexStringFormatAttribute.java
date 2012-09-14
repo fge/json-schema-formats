@@ -3,8 +3,8 @@ package org.eel.kitchen.jsonschema.formats;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Preconditions;
-import org.eel.kitchen.jsonschema.format.FormatSpecifier;
-import org.eel.kitchen.jsonschema.report.ValidationMessage;
+import org.eel.kitchen.jsonschema.format.FormatAttribute;
+import org.eel.kitchen.jsonschema.report.Message;
 import org.eel.kitchen.jsonschema.report.ValidationReport;
 import org.eel.kitchen.jsonschema.util.NodeType;
 import org.eel.kitchen.jsonschema.validator.ValidationContext;
@@ -20,8 +20,8 @@ import org.eel.kitchen.jsonschema.validator.ValidationContext;
  * checksums, which are very commonly represented in form of hexadecimal strings
  * of fixed length.</p>
  */
-public abstract class HexStringFormatSpecifier
-    extends FormatSpecifier
+public abstract class HexStringFormatAttribute
+    extends FormatAttribute
 {
     // FIXME: maybe there is a better way to do that? CharMatcher does not seem
     // to have the following predefined...
@@ -31,7 +31,7 @@ public abstract class HexStringFormatSpecifier
     protected final String errmsg;
     protected final int length;
 
-    protected HexStringFormatSpecifier(final String desc, final int length)
+    protected HexStringFormatAttribute(final String desc, final int length)
     {
         super(NodeType.STRING);
 
@@ -48,8 +48,7 @@ public abstract class HexStringFormatSpecifier
     {
         final String input = value.textValue();
 
-        final ValidationMessage.Builder msg = newMsg(fmt)
-            .addInfo("value", value);
+        final Message.Builder msg = newMsg(fmt).addInfo("value", value);
 
         if (length != input.length()) {
             msg.addInfo("expected", length).addInfo("actual", input.length())

@@ -17,14 +17,24 @@
 
 package org.eel.kitchen.jsonschema.formats;
 
-import java.io.IOException;
+import org.eel.kitchen.jsonschema.format.AbstractDateFormatAttribute;
+import org.eel.kitchen.jsonschema.format.FormatAttribute;
 
-public final class UnixEpochFormatSpecifierTest
-    extends AbstractFormatSpecifierTest
+/**
+ * Validator for the {@code date} format specification
+ */
+public final class DateFormatAttribute
+    extends AbstractDateFormatAttribute
 {
-    UnixEpochFormatSpecifierTest()
-        throws IOException
+    private static final FormatAttribute instance = new DateFormatAttribute();
+
+    public static FormatAttribute getInstance()
     {
-        super(UnixEpochFormatSpecifier.getInstance(), "utc-millisec");
+        return instance;
+    }
+
+    private DateFormatAttribute()
+    {
+        super("yyyy-MM-dd", "date");
     }
 }

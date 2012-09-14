@@ -18,7 +18,7 @@
 package org.eel.kitchen.jsonschema.formats;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import org.eel.kitchen.jsonschema.format.FormatSpecifier;
+import org.eel.kitchen.jsonschema.format.FormatAttribute;
 import org.eel.kitchen.jsonschema.report.ValidationReport;
 import org.eel.kitchen.jsonschema.util.JsonLoader;
 import org.eel.kitchen.jsonschema.validator.ValidationContext;
@@ -32,14 +32,14 @@ import java.util.Set;
 
 import static org.testng.Assert.*;
 
-public abstract class AbstractFormatSpecifierTest
+public abstract class AbstractFormatAttributeTest
 {
-    private final FormatSpecifier specifier;
+    private final FormatAttribute specifier;
     private final String fmt;
 
     private final JsonNode testData;
 
-    AbstractFormatSpecifierTest(final FormatSpecifier specifier,
+    AbstractFormatAttributeTest(final FormatAttribute specifier,
         final String resourceName)
         throws IOException
     {
@@ -66,7 +66,7 @@ public abstract class AbstractFormatSpecifierTest
     }
 
     @Test(dataProvider = "getData", invocationCount = 10, threadPoolSize = 4)
-    public void testSpecifier(final JsonNode data, final boolean valid)
+    public void testAttribute(final JsonNode data, final boolean valid)
     {
         final ValidationContext context = new ValidationContext(null);
         final ValidationReport report = new ValidationReport();
