@@ -1,6 +1,6 @@
 package com.github.fge.jsonschema.formats;
 
-import org.eel.kitchen.jsonschema.format.FormatAttribute;
+import com.github.fge.jsonschema.format.FormatAttribute;
 
 /**
  * Format specifier for {@code sha256}
@@ -14,7 +14,7 @@ public final class SHA256FormatAttribute
 
     private SHA256FormatAttribute()
     {
-        super("SHA256 hash", 64);
+        super("sha256", 64);
     }
 
     public static FormatAttribute getInstance()

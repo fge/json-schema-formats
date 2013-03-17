@@ -1,11 +1,11 @@
 package com.github.fge.jsonschema.formats;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import org.eel.kitchen.jsonschema.format.FormatAttribute;
-import org.eel.kitchen.jsonschema.report.Message;
-import org.eel.kitchen.jsonschema.report.ValidationReport;
-import org.eel.kitchen.jsonschema.util.NodeType;
-import org.eel.kitchen.jsonschema.validator.ValidationContext;
+import com.github.fge.jsonschema.exceptions.ProcessingException;
+import com.github.fge.jsonschema.format.AbstractFormatAttribute;
+import com.github.fge.jsonschema.format.FormatAttribute;
+import com.github.fge.jsonschema.processors.data.FullData;
+import com.github.fge.jsonschema.report.ProcessingReport;
+import com.github.fge.jsonschema.util.NodeType;
 
 import java.util.UUID;
 
@@ -15,13 +15,13 @@ import java.util.UUID;
  * @see UUID#fromString(String)
  */
 public final class UUIDFormatAttribute
-    extends FormatAttribute
+    extends AbstractFormatAttribute
 {
     private static final FormatAttribute instance = new UUIDFormatAttribute();
 
     private UUIDFormatAttribute()
     {
-        super(NodeType.STRING);
+        super("uuid", NodeType.STRING);
     }
 
     public static FormatAttribute getInstance()
@@ -30,15 +30,16 @@ public final class UUIDFormatAttribute
     }
 
     @Override
-    public void checkValue(final String fmt, final ValidationContext context,
-        final ValidationReport report, final JsonNode value)
+    public void validate(final ProcessingReport report, final FullData data)
+        throws ProcessingException
     {
+        final String input = data.getInstance().getNode().textValue();
+
         try {
-            UUID.fromString(value.textValue());
+            UUID.fromString(input);
         } catch (IllegalArgumentException ignored) {
-            final Message.Builder msg = newMsg(fmt).addInfo("value", value)
-                .setMessage("string is not a valid UUID");
-            report.addMessage(msg.build());
+            report.error(newMsg(data, Messages.UUID_INVALID)
+                .put("value", input));
         }
     }
 }

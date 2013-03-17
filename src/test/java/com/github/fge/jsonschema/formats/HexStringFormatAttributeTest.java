@@ -14,7 +14,7 @@ public final class HexStringFormatAttributeTest
     private static final class DummyFormatAttribute
         extends HexStringFormatAttribute
     {
-        protected DummyFormatAttribute()
+        DummyFormatAttribute()
         {
             // Unconsciouly so (?), I chose SHA1 as a base...
             super("foo", 40);

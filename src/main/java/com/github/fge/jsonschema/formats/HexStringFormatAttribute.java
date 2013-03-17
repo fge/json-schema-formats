@@ -1,13 +1,12 @@
 package com.github.fge.jsonschema.formats;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import com.github.fge.jsonschema.exceptions.ProcessingException;
+import com.github.fge.jsonschema.format.AbstractFormatAttribute;
+import com.github.fge.jsonschema.processors.data.FullData;
+import com.github.fge.jsonschema.report.ProcessingReport;
+import com.github.fge.jsonschema.util.NodeType;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Preconditions;
-import org.eel.kitchen.jsonschema.format.FormatAttribute;
-import org.eel.kitchen.jsonschema.report.Message;
-import org.eel.kitchen.jsonschema.report.ValidationReport;
-import org.eel.kitchen.jsonschema.util.NodeType;
-import org.eel.kitchen.jsonschema.validator.ValidationContext;
 
 /**
  * Base class for hexadecimal string-based representations
@@ -21,46 +20,40 @@ import org.eel.kitchen.jsonschema.validator.ValidationContext;
  * of fixed length.</p>
  */
 public abstract class HexStringFormatAttribute
-    extends FormatAttribute
+    extends AbstractFormatAttribute
 {
     // FIXME: maybe there is a better way to do that? CharMatcher does not seem
     // to have the following predefined...
     private static final CharMatcher HEX_CHARS
-        = CharMatcher.anyOf("0123456789abcdefABCDEF");
+        = CharMatcher.anyOf("0123456789abcdefABCDEF").precomputed();
 
-    protected final String errmsg;
     protected final int length;
 
-    protected HexStringFormatAttribute(final String desc, final int length)
+    protected HexStringFormatAttribute(final String fmt, final int length)
     {
-        super(NodeType.STRING);
+        super(fmt, NodeType.STRING);
 
         Preconditions.checkArgument(length > 0, "invalid length: must be " +
             "strictly positive");
         this.length = length;
-        errmsg = "string is not a valid " + desc;
     }
 
     @Override
-    public final void checkValue(final String fmt,
-        final ValidationContext context, final ValidationReport report,
-        final JsonNode value)
+    public final void validate(final ProcessingReport report,
+        final FullData data)
+        throws ProcessingException
     {
-        final String input = value.textValue();
-
-        final Message.Builder msg = newMsg(fmt).addInfo("value", value);
+        final String input = data.getInstance().getNode().textValue();
 
         if (length != input.length()) {
-            msg.addInfo("expected", length).addInfo("actual", input.length())
-                .setMessage(errmsg + ": incorrect string length");
-            report.addMessage(msg.build());
+            report.error(newMsg(data, Messages.HEX_STRING_BAD_LENGTH)
+                .put("expected", length).put("actual", input.length()));
             return;
         }
 
         if (HEX_CHARS.matchesAllOf(input))
             return;
 
-        report.addMessage(msg.setMessage(errmsg + ": invalid characters")
-            .build());
+        report.error(newMsg(data, "invalid characters"));
     }
 }

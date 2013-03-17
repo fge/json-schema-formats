@@ -1,14 +1,16 @@
 package com.github.fge.jsonschema.formats;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import com.github.fge.jsonschema.exceptions.ProcessingException;
+import com.github.fge.jsonschema.format.AbstractFormatAttribute;
+import com.github.fge.jsonschema.format.FormatAttribute;
+import com.github.fge.jsonschema.processors.data.FullData;
+import com.github.fge.jsonschema.report.ProcessingReport;
+import com.github.fge.jsonschema.util.NodeType;
 import com.google.common.base.CharMatcher;
-import org.eel.kitchen.jsonschema.format.FormatAttribute;
-import org.eel.kitchen.jsonschema.report.Message;
-import org.eel.kitchen.jsonschema.report.ValidationReport;
-import org.eel.kitchen.jsonschema.util.NodeType;
-import org.eel.kitchen.jsonschema.validator.ValidationContext;
 
 import java.util.regex.Pattern;
+
+import static com.github.fge.jsonschema.formats.Messages.*;
 
 /**
  * Format specifier for an hypothetical {@code base64} format attribute
@@ -19,7 +21,7 @@ import java.util.regex.Pattern;
  * rules.</p>
  */
 public final class Base64FormatAttribute
-    extends FormatAttribute
+    extends AbstractFormatAttribute
 {
     /*
      * The algorithm is as follows:
@@ -59,15 +61,14 @@ public final class Base64FormatAttribute
 
     private Base64FormatAttribute()
     {
-        super(NodeType.STRING);
+        super("base64", NodeType.STRING);
     }
 
     @Override
-    public void checkValue(final String fmt, final ValidationContext ctx,
-        final ValidationReport report, final JsonNode value)
+    public void validate(final ProcessingReport report, final FullData data)
+        throws ProcessingException
     {
-        final String input = value.textValue();
-        final Message.Builder msg = newMsg(fmt).addInfo("value", value);
+        final String input = data.getInstance().getNode().textValue();
 
         /*
          * The string length must be a multiple of 4. FIXME though: can it be 0?
@@ -75,9 +76,8 @@ public final class Base64FormatAttribute
          * make sense.
          */
         if (input.length() % 4 != 0) {
-            msg.setMessage("input has illegal length (not a multiple of 4)")
-                .addInfo("found", input.length());
-            report.addMessage(msg.build());
+            report.error(newMsg(data, BASE64_BAD_LENGTH)
+                .put("found", input.length()));
             return;
         }
 
@@ -87,8 +87,7 @@ public final class Base64FormatAttribute
         if (index == -1)
             return;
 
-        msg.setMessage("malformed input: character not in Base64 alphabet")
-            .addInfo("index", index);
-        report.addMessage(msg.build());
+        report.error(newMsg(data, Messages.BASE64_BAD_CHAR)
+            .put("index", index));
     }
 }

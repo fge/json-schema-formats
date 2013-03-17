@@ -1,6 +1,6 @@
 package com.github.fge.jsonschema.formats;
 
-import org.eel.kitchen.jsonschema.format.FormatAttribute;
+import com.github.fge.jsonschema.format.FormatAttribute;
 
 /**
  * Format specifier for {@code sha512}
@@ -14,7 +14,7 @@ public final class SHA512FormatAttribute
 
     private SHA512FormatAttribute()
     {
-        super("SHA512 hash", 128);
+        super("sha512", 128);
     }
 
     public static FormatAttribute getInstance()

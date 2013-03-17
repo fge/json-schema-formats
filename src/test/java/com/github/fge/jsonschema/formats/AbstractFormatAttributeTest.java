@@ -18,10 +18,17 @@
 package com.github.fge.jsonschema.formats;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import org.eel.kitchen.jsonschema.format.FormatAttribute;
-import org.eel.kitchen.jsonschema.report.ValidationReport;
-import org.eel.kitchen.jsonschema.util.JsonLoader;
-import org.eel.kitchen.jsonschema.validator.ValidationContext;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.github.fge.jsonschema.exceptions.ProcessingException;
+import com.github.fge.jsonschema.format.FormatAttribute;
+import com.github.fge.jsonschema.processors.data.FullData;
+import com.github.fge.jsonschema.report.DevNullProcessingReport;
+import com.github.fge.jsonschema.report.ProcessingReport;
+import com.github.fge.jsonschema.tree.CanonicalSchemaTree;
+import com.github.fge.jsonschema.tree.SchemaTree;
+import com.github.fge.jsonschema.tree.SimpleJsonTree;
+import com.github.fge.jsonschema.util.JacksonUtils;
+import com.github.fge.jsonschema.util.JsonLoader;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -30,28 +37,25 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
 
 public abstract class AbstractFormatAttributeTest
 {
     private final FormatAttribute specifier;
-    private final String fmt;
 
     private final JsonNode testData;
 
-    AbstractFormatAttributeTest(final FormatAttribute specifier,
-        final String resourceName)
+    AbstractFormatAttributeTest(final FormatAttribute attr,
+        final String resource)
         throws IOException
     {
-        this.specifier = specifier;
-        fmt = resourceName;
+        this.specifier = attr;
 
-        testData = JsonLoader.fromResource("/formats/" + resourceName
-            + ".json");
+        testData = JsonLoader.fromResource("/formats/" + resource + ".json");
     }
 
     @DataProvider
-    protected Iterator<Object[]> getData()
+    protected final Iterator<Object[]> getData()
     {
         final Set<Object[]> set = new HashSet<Object[]>();
 
@@ -66,12 +70,16 @@ public abstract class AbstractFormatAttributeTest
     }
 
     @Test(dataProvider = "getData", invocationCount = 10, threadPoolSize = 4)
-    public void testAttribute(final JsonNode data, final boolean valid)
+    public final void testAttribute(final JsonNode instance,
+        final boolean valid)
+        throws ProcessingException
     {
-        final ValidationContext context = new ValidationContext(null);
-        final ValidationReport report = new ValidationReport();
+        final ProcessingReport report = new DevNullProcessingReport();
+        final ObjectNode schema = JacksonUtils.nodeFactory().objectNode();
+        final SchemaTree tree = new CanonicalSchemaTree(schema);
+        final FullData data = new FullData(tree, new SimpleJsonTree(instance));
 
-        specifier.checkValue(fmt, context, report, data);
+        specifier.validate(report, data);
 
         assertEquals(report.isSuccess(), valid);
     }

@@ -1,6 +1,6 @@
 package com.github.fge.jsonschema.formats;
 
-import org.eel.kitchen.jsonschema.format.FormatAttribute;
+import com.github.fge.jsonschema.format.FormatAttribute;
 
 /**
  * Format specifier for {@code md5}
@@ -14,7 +14,7 @@ public final class MD5FormatAttribute
 
     private MD5FormatAttribute()
     {
-        super("MD5 hash", 32);
+        super("md5", 32);
     }
 
     public static FormatAttribute getInstance()

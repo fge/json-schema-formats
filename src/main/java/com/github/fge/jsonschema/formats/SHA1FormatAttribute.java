@@ -1,6 +1,6 @@
 package com.github.fge.jsonschema.formats;
 
-import org.eel.kitchen.jsonschema.format.FormatAttribute;
+import com.github.fge.jsonschema.format.FormatAttribute;
 
 /**
  * Format specifier for {@code sha1}
@@ -16,7 +16,7 @@ public final class SHA1FormatAttribute
 
     private SHA1FormatAttribute()
     {
-        super("SHA1 hash", 40);
+        super("sha1", 40);
     }
 
     public static FormatAttribute getInstance()
