@@ -1,4 +1,4 @@
-package org.eel.kitchen.jsonschema.formats;
+package com.github.fge.jsonschema.formats;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.eel.kitchen.jsonschema.format.FormatAttribute;

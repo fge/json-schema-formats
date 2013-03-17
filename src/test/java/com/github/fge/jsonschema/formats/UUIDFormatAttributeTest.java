@@ -1,4 +1,4 @@
-package org.eel.kitchen.jsonschema.formats;
+package com.github.fge.jsonschema.formats;
 
 import java.io.IOException;
 
