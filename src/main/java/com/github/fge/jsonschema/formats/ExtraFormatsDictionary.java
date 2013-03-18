@@ -23,6 +23,10 @@ public final class ExtraFormatsDictionary
         attribute = Base64FormatAttribute.getInstance();
         builder.addEntry(name, attribute);
 
+        name = "json-pointer";
+        attribute = JsonPointerFormatAttribute.getInstance();
+        builder.addEntry(name, attribute);
+
         name = "mac";
         attribute = MacAddressFormatAttribute.getInstance();
         builder.addEntry(name, attribute);
