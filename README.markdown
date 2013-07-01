@@ -3,6 +3,9 @@
 <p>The license of this project is LGPLv3 or later. See file
 src/main/resources/LICENSE for the full text.</p>
 
+<p>Note: this project is for the 2.0.x version of json-schema-validator; starting with 2.1.x, the
+format attributes defined in this package are integrated into json-schema-validator itself.</p>
+
 <h2>What it is</h2>
 
 <p>This is a project implementing format attributes not included in the JSON Schema drafts, which
